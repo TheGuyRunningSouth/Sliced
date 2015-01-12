@@ -1,0 +1,16 @@
+[
+{
+  "modid": "sliced",
+  "name": "Sliced",
+  "description": "Food Slicing mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["TheGuyRunningSouth"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
