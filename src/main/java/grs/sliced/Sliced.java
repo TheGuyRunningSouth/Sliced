@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Sliced
 {
     public static final String MODID = "sliced";
-    public static final String VERSION = "0.3";
+    public static final String VERSION = "1.01";
     
     public static CreativeTabs tabCustom = new CreativeTabs("tabName")
     {
