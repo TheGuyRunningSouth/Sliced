@@ -7,6 +7,6 @@ public class ItemBlade extends Item {
 	public ItemBlade() {
 		setUnlocalizedName(Sliced.MODID + "_" + "sliceblade");
 		setTextureName(Sliced.MODID + ":" + "sliceblade");
-		setCreativeTab(CreativeTabs.tabMisc);
+		setCreativeTab(Sliced.tabCustom);
 	}
 }

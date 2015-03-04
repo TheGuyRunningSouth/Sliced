@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Sliced
 {
     public static final String MODID = "sliced";
-    public static final String VERSION = "1.01";
+    public static final String VERSION = "1.03";
     
     public static CreativeTabs tabCustom = new CreativeTabs("tabName")
     {
@@ -37,27 +37,41 @@ public class Sliced
     public static Item whetstone;
     public static Item blade;
     public static Item handle;
-    
+    public static Item appleSlice;
     
     
     @EventHandler
     public void preinit(FMLPreInitializationEvent event)
     {
-    	slicingKnife = new ItemSliceKnife(ToolMaterial.IRON);
-    	GameRegistry.registerItem(slicingKnife, "slicingKnife");
-    
-    	breadSlice = new ItemBreadSlice(1, (float) 1.5, false);
-    	GameRegistry.registerItem(breadSlice, "breadSlice");
     	
-    	whetstone = new ItemWhetstone();
-    	GameRegistry.registerItem(whetstone, "whetstone");
-    	
+	//Init and Declaration    	
+    	//Parts
     	blade = new ItemBlade();
     	GameRegistry.registerItem(blade, "sliceblade");
     	
     	handle = new ItemHandle();
     	GameRegistry.registerItem(handle, "slicehandle");
     	
+    	
+    	//Tools
+    	slicingKnife = new ItemSliceKnife(ToolMaterial.IRON);
+    	GameRegistry.registerItem(slicingKnife, "slicingKnife");
+    	
+    	whetstone = new ItemWhetstone();
+    	GameRegistry.registerItem(whetstone, "whetstone");
+    	
+    	//Food
+    	breadSlice = new ItemBreadSlice(1, (float) 1.5, false);
+    	GameRegistry.registerItem(breadSlice, "breadSlice");
+    	
+    	appleSlice = new ItemAppleSlice(1, (float) 0.525, false);
+    	GameRegistry.registerItem(appleSlice, "appleSlice");
+    	
+    	
+    	
+    	
+   //Recipes 	
+    	//Parts
     	GameRegistry.addRecipe(new ItemStack(handle), new Object[]
     			{
     			"A  ",
@@ -73,6 +87,11 @@ public class Sliced
     			});
     	
     	
+    	GameRegistry.addShapelessRecipe(new ItemStack(blade, 1), new Object[]{
+    		new ItemStack(whetstone, 1, -1), Items.iron_ingot
+    	});
+    	
+    	//Tools
     	GameRegistry.addRecipe(new ItemStack(whetstone), new Object[]
     			{
     				"A ",
@@ -93,16 +112,22 @@ public class Sliced
     			    	" B",
     			    	'A', blade, 'B', handle 
     			});
+    	
+    	//Food
     	GameRegistry.addRecipe(new ItemStack(breadSlice, 8), new Object[]
     			{
     					"A",
     					"B",
     					'A', new ItemStack(slicingKnife, 1, OreDictionary.WILDCARD_VALUE), 'B', Items.bread
     			});
-    
-    	GameRegistry.addShapelessRecipe(new ItemStack(blade, 1), new Object[]{
-    		new ItemStack(whetstone, 1, -1), Items.iron_ingot
-    	});
+    	
+    	GameRegistry.addRecipe(new ItemStack(appleSlice, 8), new Object[]
+    			{
+    					"A",
+    					"B",
+    					'A', new ItemStack(slicingKnife, 1, OreDictionary.WILDCARD_VALUE), 'B', Items.apple
+    			});
+    	
     	}
     			
     }
