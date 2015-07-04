@@ -1,19 +1,17 @@
 package grs.sliced;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-
-import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -21,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Sliced
 {
     public static final String MODID = "sliced";
-    public static final String VERSION = "1.03";
+    public static final String VERSION = "1.1.2";
     
     public static CreativeTabs tabCustom = new CreativeTabs("tabName")
     {
@@ -129,7 +127,12 @@ public class Sliced
     			});
     	
     	}
-    			
+    
+    @EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+    	OreDictionary.registerOre("foodBread", breadSlice);
+    }
     }
     	
     

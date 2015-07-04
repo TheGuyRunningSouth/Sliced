@@ -3,4 +3,5 @@ item.sliced_breadSlice.name=Bread Slice
 item.sliced_slicehandle.name=Knife Handle
 item.sliced_sliceblade.name=Blade
 item.sliced_whetstone.name=Whetstone
+item.sliced_appleSlice.name=Apple Slice
 itemGroup.tabName=Sliced
