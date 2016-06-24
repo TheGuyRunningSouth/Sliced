@@ -9,7 +9,7 @@ import net.minecraft.item.ItemSword;
 public class ItemWhetstone extends Item {
 
 
-
+private final String name = "whetstone";
 
 	public ItemWhetstone()
 	{
@@ -18,9 +18,13 @@ public class ItemWhetstone extends Item {
 		setMaxDamage(50-1);
 		setNoRepair();
 		setUnlocalizedName(Sliced.MODID + "_" + "whetstone");
-		setTextureName(Sliced.MODID + ":" + "whetstone");
-		setCreativeTab(Sliced.tabCustom);
+	setCreativeTab(Sliced.tabCustom);
 		
+	}
+	
+	public String getname()
+	{
+		return name;
 	}
 @Override
 public boolean hasContainerItem(ItemStack itemstack){
@@ -43,10 +47,5 @@ public  ItemStack getContainerItem(ItemStack stack){
 	
 }
 
-@Override 
-public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemstack) {
-	
- return false;
- 
-}
+
 }

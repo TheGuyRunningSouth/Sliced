@@ -1,25 +1,26 @@
 package grs.sliced;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = Sliced.MODID, version = Sliced.VERSION)
 public class Sliced
 {
     public static final String MODID = "sliced";
-    public static final String VERSION = "1.1.2";
+    public static final String VERSION = "1.03";
     
     public static CreativeTabs tabCustom = new CreativeTabs("tabName")
     {
@@ -36,8 +37,10 @@ public class Sliced
     public static Item blade;
     public static Item handle;
     public static Item appleSlice;
+   
     
     
+	
     @EventHandler
     public void preinit(FMLPreInitializationEvent event)
     {
@@ -49,6 +52,8 @@ public class Sliced
     	
     	handle = new ItemHandle();
     	GameRegistry.registerItem(handle, "slicehandle");
+    	
+   
     	
     	
     	//Tools
@@ -74,19 +79,19 @@ public class Sliced
     			{
     			"A  ",
     			" B ",
-    			"  A", 'A', new ItemStack(Items.leather), 'B',Items.stick
+    			"  A", 'A', new ItemStack(Items.LEATHER), 'B',Items.STICK
     			});
     	
     	GameRegistry.addRecipe(new ItemStack(handle), new Object[]
     			{
     			"  A",
     			" B ",
-    			"A  ", 'A', Items.leather,'B', Items.stick
+    			"A  ", 'A', Items.LEATHER,'B', Items.STICK
     			});
     	
     	
     	GameRegistry.addShapelessRecipe(new ItemStack(blade, 1), new Object[]{
-    		new ItemStack(whetstone, 1, -1), Items.iron_ingot
+    		new ItemStack(whetstone, 1, -1), Items.IRON_INGOT
     	});
     	
     	//Tools
@@ -94,14 +99,14 @@ public class Sliced
     			{
     				"A ",
     				"BC",
-    				"D ", 'A', Blocks.sandstone, 'B', Blocks.stone, 'C', Items.water_bucket, 'D', Blocks.cobblestone
+    				"D ", 'A', Blocks.SANDSTONE, 'B', Blocks.STONE, 'C', Items.WATER_BUCKET, 'D', Blocks.COBBLESTONE
     			});
     	
     	GameRegistry.addRecipe(new ItemStack(whetstone), new Object[]
     			{
     				" A",
     				"CB",
-    				" D", 'A', Blocks.sandstone, 'B', Blocks.stone, 'C', Items.water_bucket, 'D', Blocks.cobblestone
+    				" D", 'A', Blocks.SANDSTONE, 'B', Blocks.STONE, 'C', Items.WATER_BUCKET, 'D', Blocks.COBBLESTONE
     			});
     	
     	GameRegistry.addRecipe(new ItemStack(slicingKnife), new Object[]
@@ -116,24 +121,38 @@ public class Sliced
     			{
     					"A",
     					"B",
-    					'A', new ItemStack(slicingKnife, 1, OreDictionary.WILDCARD_VALUE), 'B', Items.bread
+    					'A', new ItemStack(slicingKnife, 1, OreDictionary.WILDCARD_VALUE), 'B', Items.BREAD
     			});
     	
     	GameRegistry.addRecipe(new ItemStack(appleSlice, 8), new Object[]
     			{
     					"A",
     					"B",
-    					'A', new ItemStack(slicingKnife, 1, OreDictionary.WILDCARD_VALUE), 'B', Items.apple
+    					'A', new ItemStack(slicingKnife, 1, OreDictionary.WILDCARD_VALUE), 'B', Items.APPLE
     			});
     	
+
     	}
-    
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	OreDictionary.registerOre("foodBread", breadSlice);
+    	if(event.getSide() == Side.CLIENT)
+    	{
+    		
+
+		net.minecraft.client.renderer.RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+    		
+    		OreDictionary.registerOre("foodBread", breadSlice);
+    		renderItem.getItemModelMesher().register(slicingKnife, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(Sliced.MODID + ":" + ((ItemSliceKnife) slicingKnife).getName(), "inventory"));
+    		renderItem.getItemModelMesher().register(whetstone, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(Sliced.MODID + ":" + ((ItemWhetstone) whetstone).getname(), "inventory"));
+    		renderItem.getItemModelMesher().register(appleSlice, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(Sliced.MODID + ":" + ((ItemAppleSlice) appleSlice).getname(), "inventory"));
+    		renderItem.getItemModelMesher().register(breadSlice, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(Sliced.MODID + ":" + ((ItemBreadSlice) breadSlice).getname(), "inventory"));
+    		renderItem.getItemModelMesher().register(blade, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(MODID + ":" + ((ItemBlade) blade).getname(), "inventory"));
+    		renderItem.getItemModelMesher().register(handle, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(Sliced.MODID + ":" + ((ItemHandle) handle).getname(), "inventory"));
+    	};
     }
-    }
+}
+    
     	
     
     
